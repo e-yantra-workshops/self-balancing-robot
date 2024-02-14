@@ -5,18 +5,24 @@
 MPU6050 mpu(Wire);
 
 // Variables for tilt angle
-float tilt=0.0, tilt_old=0.0, tilt_dot=0.0, integral_tilt=0.0;
+float tilt=0.0, tilt_old=0.0, tilt_dot=0.0,integral_tilt=0.0;
 
 // Variable for wheel angle
 int wheel_pulse_count = 0;
+float wheel_angle = 0.0, wheel_angle_old = 0.0, wheel_dot = 0.0, integral_wheel = 0.0;
 
 // final output for wheel velocity
 int control_output = 0.0;
 
 // Tilt PID gains
-float kp_tilt =
-float ki_tilt =
-float kd_tilt =
+float kp_tilt=0;
+float kd_tilt=0;
+float ki_tilt=0;
+
+// Position PID gains
+float kp_wheel=0;
+float kd_wheel=0;
+float ki_wheel=0;
 
 
 // Define motor pins
@@ -50,6 +56,20 @@ void motor_init() {
     analogWrite(PWMR, 0);
 }
 
+// Timer1 ISR for IMU
+void timer1_init() {
+    cli();  // Clear global interrupts
+    TIMSK1 = 0x01;  // Timer5 overflow interrupt enable
+    TCCR1B = 0x00;  // Stop
+    TCNT1H = 0xA2;  // Counter higher 8 bit value
+    TCNT1L = 0x3F;  // Counter lower 8 bit value
+    TCCR1A = 0x00;
+    TCCR1C = 0x00;
+    TCCR1B = 0x02;  // Start Timer, prescaler 8
+    sei();   // Enable global interrupts
+}
+
+
 // Motor control function for left motor
 void motor_control_L(int pwm) {
     if (pwm < 0) {
@@ -76,19 +96,6 @@ void motor_control_R(int pwm) {
     analogWrite(PWMR, pwm);
 }
 
-// Timer1 ISR for IMU
-void timer1_init() {
-    cli();  // Clear global interrupts
-    TIMSK1 = 0x01;  // Timer5 overflow interrupt enable
-    TCCR1B = 0x00;  // Stop
-    TCNT1H = 0xA2;  // Counter higher 8 bit value
-    TCNT1L = 0x3F;  // Counter lower 8 bit value
-    TCCR1A = 0x00;
-    TCCR1C = 0x00;
-    TCCR1B = 0x02;  // Start Timer, prescaler 8
-    sei();   // Enable global interrupts
-}
-
 // ISR for Timer1 overflow
 ISR(TIMER1_OVF_vect) {
     sei();  
@@ -110,13 +117,15 @@ void feedback(){
     tilt = mpu.getAngleY();
     // fill-in
  
-    wheel_angle = // for every 180 degree there is 350 pulse counts or 1 full rotation = 700 pulses
+    wheel_angle = 0; // for every 180 degree there is 350 pulse counts or 1 full rotation = 700 pulses
 
+    //fill-in
 }
 
 void control_eqn(){
 
-  // fill-in
+// fill-in
+
 }
 
 // Setup function
@@ -143,7 +152,7 @@ void setup() {
     Serial.println("Timer initialized\n");
     
     //------Encoder HW Interrupt setup-----//
-    attachInterrupt(digitalPinToInterrupt(2), mot_rencoder, RISING);  
+    attachInterrupt(digitalPinToInterrupt(2), motor_encoder, RISING);  
 }
 
 // Loop function
@@ -155,8 +164,8 @@ void loop() {
 // ISR for motor encoder
 void motor_encoder() {                                  
     if (digitalRead(encodPinBR) == HIGH) {
-         wheel_pulse_count = wheel_pulse_count + 1;
-    } else {
          wheel_pulse_count = wheel_pulse_count - 1;
+    } else {
+         wheel_pulse_count = wheel_pulse_count + 1;
     }
 }
