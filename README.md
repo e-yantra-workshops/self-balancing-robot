@@ -9,7 +9,7 @@ The conference is organized by IISc in cooperation with the Control Society, and
 
 1. **Installation Guides**
 
-- Detailed installation instructions for Ubuntu, macOS, and Windows, provided through platform-specific mdBook documentation.
+- Detailed installation instructions for [Ubuntu](./ubuntu_installation.md), [macOS](./Mac_installation.md), and [Windows](./windows_installation.md), provided through platform-specific mdBook documentation.
 
 2. **Source Code**
 
