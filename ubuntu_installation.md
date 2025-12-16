@@ -42,3 +42,12 @@
 
 2. Follow the same steps as For Ubuntu 22.04
 
+
+
+Ensure Python 3 and pip are installed<br>
+Install the required Python packages:
+```bash
+
+python3 -m pip install numpy matplotlib pyzmq cbor2
+
+```

@@ -108,3 +108,16 @@ That’s it. It should be installed after a few seconds.
 <div style="text-align: center;">
 <img src="assets/ss19.png" alt="Ubuntu" width="500"/>
 </div>
+
+Ensure Python 3 and pip are installed<br>
+Open Command Prompt or PowerShell 
+
+```bash
+python -m pip install numpy matplotlib pyzmq cbor2
+```
+To verify successful installation, run:
+
+```bash
+python -c "import numpy, matplotlib, zmq, cbor2; print('All dependencies installed successfully')"
+
+```
