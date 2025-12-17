@@ -219,7 +219,6 @@ def sysCall_actuation():
         apply_action(lqr)
 
 # --- sysCall_sensing ---
-# --- sysCall_sensing ---
 def sysCall_sensing():
     global D, weights, episode, step_count, reward_sum, total_rewards, max_reward, best_weights, training_complete
     global batch_size, state_tiles, action, prev_pos_cont, prev_tilt_cont, epsilon, visit_counts, n_episodes
@@ -263,7 +262,7 @@ def sysCall_sensing():
     
     theta_wheel = sim.getObjectPosition(cart, -1)[1]/0.02 #0.02 is the radius of the wheel
     
-    theta_wheel_error =  (theta_wheel-theta_wheel_setpoint)
+    theta_wheel_error =  -(theta_wheel-theta_wheel_setpoint)
     theta_wheel_dot = theta_wheel_error - prev_theta_wheel_error
     theta_wheel_integral = theta_wheel_integral + theta_wheel_error
     prev_theta_wheel_error = theta_wheel_error
