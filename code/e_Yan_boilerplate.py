@@ -255,7 +255,7 @@ def sysCall_sensing():
     eYan_orientation = sim.getObjectOrientation(cart, -1)
     yaw, pitch, roll = sim.alphaBetaGammaToYawPitchRoll(eYan_orientation[0], eYan_orientation[1], eYan_orientation[2])
     
-    roll_error = (roll-roll_setpoint) # converting radians to degrees
+    roll_error = (roll-roll_setpoint)
     roll_dot = roll_error - prev_roll_error
     roll_integral = roll_integral + roll_error
     prev_roll_error = roll_error
