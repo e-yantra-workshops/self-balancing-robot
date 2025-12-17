@@ -279,7 +279,7 @@ def batch_update():
     k_replay = 500000   # total replay per batch
     per_tile_alpha = target_alpha / float(tilecoder.num_tilings)
     
-    # -------- Perform replay weighted by priority --------
+    # -------- Perform replay --------
     for name in batch_name:
         batch = D[name]
 
