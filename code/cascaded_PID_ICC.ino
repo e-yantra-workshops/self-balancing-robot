@@ -213,7 +213,7 @@ void motor_r(int pwm, float target_radps) {        //Right motor function takes 
     digitalWrite(ph2, HIGH);
     ledcWrite(en2, pwm);
     target_radps = target_radps;
-  } else if (target_radps = 0) {
+  } else if (target_radps == 0) {
 
     ledcWrite(en2, 0);                 //if passed 0 as direction then pwm for the motors will be also 0.
   }
@@ -232,7 +232,7 @@ void motor_l(int pwm1, float target_radps1) {       // Same as right motor Funct
     digitalWrite(ph1, LOW);                   //Rotate clkwise if the direction is positive
     ledcWrite(en1, pwm1);
     target_radps1 = target_radps1;
-  } else if (target_radps1 = 0) {
+  } else if (target_radps1 == 0) {
 
     ledcWrite(en1, 0);               //if passed 0 as direction then pwm for the motors will be also 0.
   }
