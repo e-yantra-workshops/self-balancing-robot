@@ -177,8 +177,8 @@ void loop() {
     u = ;  // Enter PID logic  Kp*error + Ki*error + Kd*error
 
     // copy vars for next iteration
-    last_input_pitch = input_pitch;                         
-    last_input_wheel = Input_wheel;
+    last_input_pitch = error_pitch;                         
+    last_input_wheel = error_wheel;
     lastTime = now;
     //////////////////////////////////////////////////////////////
     }
